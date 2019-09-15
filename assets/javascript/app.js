@@ -19,7 +19,7 @@ var batman = [
         images: ["./assets/images/250px-BatmanComiclssue1,1940png"]
     },
     {
-        question: "Who is the voice of the iconic Joker in Batman: the animated series",
+        question: "Who is the voice of the iconic Joker in Batman: the animated series?",
         choices: ["Jack Nicholson", "Cameron Monaghan", "Cesar Romero", "Mark Hamill", "Zach Galifianakis"],
         answer: 3,
         images: ["./assets/images/joker.jpg"]
@@ -49,7 +49,7 @@ var batman = [
         images: ["./assets/images/batgirl.jpg"]
     },
     {
-        question: "Which Robin was killed by Batman's arch-nemesis The Joker",
+        question: "Which Robin was killed by Batman's arch-nemesis The Joker?",
         choices: ["Damian Wayne", "Jason Todd", "Tim Drake", "Dick Grayson", "Stephanie Brown"],
         answer: 1,
         images: ["./assets/images/robin.jpg"]
@@ -64,7 +64,16 @@ $("#play").on("click", function() {
     function displayGame() {
         var index = Math.floor(Math.random() * batman.length);
         var questionAsked = batman[index]
-        $("#question").html("<h2>" + questionAsked.question + "</h2>")         
+        $("#question").html("<h2>" + questionAsked.question + "</h2>")
+//for loop to go through the choices and display them on the page in a <button>
+        for (var i = 0; i < questionAsked.choices.length; i++) {
+            var userChoices = $("<button>");
+            userChoices.addClass("choice");
+            userChoices.data("", );
+            $("#answers").append(userChoices);
+
+            console.log(questionAsked)
+        }
     }
 
 
