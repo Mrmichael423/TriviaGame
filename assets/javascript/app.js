@@ -5,11 +5,16 @@
 // function containing a for loop for asking questions
 // if/else statement to show right and wrong answers
 // reset function
+var rightGuesses = 0;
+var wrongGuesses = 0;
+var notAnswered = 0;
+var timer = 20;
+var timerOn = false;
 
 var batman = [
     {
         question: "In what year was the first Batman comic released?",
-        choices: ["1939", "1931", "1945", "1948", "19443"],
+        choices: ["1939", "1931", "1945", "1948", "1943"],
         answer: 0,
         images: ["./assets/images/250px-BatmanComiclssue1,1940png"]
     },
@@ -50,9 +55,19 @@ var batman = [
         images: ["./assets/images/robin.jpg"]
     },
 ]
+$("#again").hide()
+$("#play").on("click", function() {
+    $("#play").hide()
+    displayGame()
+})
+//creates a random question from the object and displays it on the screen.
+    function displayGame() {
+        var index = Math.floor(Math.random() * batman.length);
+        var questionAsked = batman[index]
+        $("#question").html("<h2>" + questionAsked.question + "</h2>")         
+    }
 
-var rightGuesses = 0;
-var wrongGuesses = 0;
-var timer = 20;
-var timerOn = false;
+
+
+
 
