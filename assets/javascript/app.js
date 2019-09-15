@@ -10,7 +10,9 @@ var wrongGuesses = 0;
 var notAnswered = 0;
 var timer = 20;
 var timerOn = false;
-
+var userChoices;
+var questionAsked;
+var index
 var batman = [
     {
         question: "In what year was the first Batman comic released?",
@@ -62,19 +64,27 @@ $("#play").on("click", function() {
 })
 //creates a random question from the object and displays it on the screen.
     function displayGame() {
-        var index = Math.floor(Math.random() * batman.length);
-        var questionAsked = batman[index]
+        index = Math.floor(Math.random() * batman.length);
+        questionAsked = batman[index]
         $("#question").html("<h2>" + questionAsked.question + "</h2>")
 //for loop to go through the choices and display them on the page in a <button>
         for (var i = 0; i < questionAsked.choices.length; i++) {
-            var userChoices = $("<button>");
+            userChoices = $("<button>");
             userChoices.addClass("choice");
-            userChoices.data("", );
+            userChoices.html(questionAsked.choices[i])
+            userChoices.data("value", i);
             $("#answers").append(userChoices);
 
-            console.log(questionAsked)
         }
     }
+//on click function
+    $("#answers").on("click", ".choice", function() {
+        
+        if (userChoices === questionAsked.answer) {
+            alert("hey")
+        }
+
+    })
 
 
 
