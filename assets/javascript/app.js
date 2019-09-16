@@ -12,7 +12,8 @@ var timer = 20;
 var timerOn = false;
 var userGuess = "";
 var questionAsked;
-var index
+var index;
+var intervalID;
 var batman = [
     {
         question: "In what year was the first Batman comic released?",
@@ -61,14 +62,38 @@ $("#again").hide()
 $("#play").on("click", function() {
     $("#play").hide()
     displayGame()
+    startTimer()
 })
+console.log(startTimer)
+
+function startTimer(){
+    if (timerOn === false) {
+        intervalID = setInterval(decrease, 1000);
+        timerOn = true
+    }
+}
+function decrease () {
+    $("#timer").html("<h3>Time is counting: " + timer + "</h3>")
+    timer--;
+    if (timer === 0) {
+        notAnswered++
+
+    }
+}
+function stop() {
+    timerOn = false
+    clearInterval(intervalID)
+}
+
+
+
 //creates a random question from the object and displays it on the screen.
     function displayGame() {
         index = Math.floor(Math.random() * batman.length);
         questionAsked = batman[index]
         $("#question").html("<h2>" + questionAsked.question + "</h2>")
+            for (var i = 0; i < questionAsked.choices.length; i++) {
 //for loop to go through the choices and display them on the page in a <button>
-        for (var i = 0; i < questionAsked.choices.length; i++) {
             var userChoices = $("<button>");
             userChoices.addClass("choice");
             userChoices.html(questionAsked.choices[i])
@@ -82,7 +107,17 @@ $("#play").on("click", function() {
 //changes userGuess from a string to an integer so it can compare to the answer value
         userGuess = parseInt($(this).data("value"));
         if (userGuess === questionAsked.answer) {
-            alert("hey")
+            stop()
+            rightGuesses++
+            $("#answers").html("<h3>Correct!</h3>")
+            userGuess = "";
+            displayGame()
+        } else {
+            stop()
+            wrongGuesses++
+            $("#answers").html("<h3>Train Harder! The right answer is: " + questionAsked.choices[questionAsked.answer] + "</h3>" )
+            userGuess = "";
+            displayGame()
         }
 
     })
