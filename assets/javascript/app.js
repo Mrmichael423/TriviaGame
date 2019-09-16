@@ -10,7 +10,7 @@ var wrongGuesses = 0;
 var notAnswered = 0;
 var timer = 20;
 var timerOn = false;
-var userChoices;
+var userGuess = "";
 var questionAsked;
 var index
 var batman = [
@@ -69,7 +69,7 @@ $("#play").on("click", function() {
         $("#question").html("<h2>" + questionAsked.question + "</h2>")
 //for loop to go through the choices and display them on the page in a <button>
         for (var i = 0; i < questionAsked.choices.length; i++) {
-            userChoices = $("<button>");
+            var userChoices = $("<button>");
             userChoices.addClass("choice");
             userChoices.html(questionAsked.choices[i])
             userChoices.data("value", i);
@@ -79,8 +79,9 @@ $("#play").on("click", function() {
     }
 //on click function
     $("#answers").on("click", ".choice", function() {
-        
-        if (userChoices === questionAsked.answer) {
+//changes userGuess from a string to an integer so it can compare to the answer value
+        userGuess = parseInt($(this).data("value"));
+        if (userGuess === questionAsked.answer) {
             alert("hey")
         }
 
