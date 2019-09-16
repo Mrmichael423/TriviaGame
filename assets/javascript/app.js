@@ -8,6 +8,7 @@
 var rightGuesses = 0;
 var wrongGuesses = 0;
 var notAnswered = 0;
+var qnaIndex = 0;
 var timer = 20;
 var timerOn = false;
 var userGuess = "";
@@ -75,10 +76,6 @@ function startTimer(){
 function decrease () {
     $("#timer").html("<h3>Time is counting: " + timer + "</h3>")
     timer--;
-    if (timer === 0) {
-        notAnswered++
-
-    }
 }
 function stop() {
     timerOn = false
@@ -87,40 +84,55 @@ function stop() {
 
 
 
-//creates a random question from the object and displays it on the screen.
-    function displayGame() {
-        index = Math.floor(Math.random() * batman.length);
-        questionAsked = batman[index]
-        $("#question").html("<h2>" + questionAsked.question + "</h2>")
-            for (var i = 0; i < questionAsked.choices.length; i++) {
-//for loop to go through the choices and display them on the page in a <button>
-            var userChoices = $("<button>");
-            userChoices.addClass("choice");
-            userChoices.html(questionAsked.choices[i])
-            userChoices.data("value", i);
-            $("#answers").append(userChoices);
 
-        }
+//creates a random question from the object and displays it on the screen.
+function displayGame() {
+    index = Math.floor(Math.random() * batman.length);
+    questionAsked = batman[index]
+    $("#question").html("<h2>" + questionAsked.question + "</h2>")
+    for (var i = 0; i < questionAsked.choices.length; i++) {
+        //for loop to go through the choices and display them on the page in a <button>
+        var userChoices = $("<button>");
+        userChoices.addClass("choice");
+        userChoices.html(questionAsked.choices[i])
+        userChoices.data("value", i);
+        $("#answers").append(userChoices);
+        
     }
+}
+    
 //on click function
-    $("#answers").on("click", ".choice", function() {
-//changes userGuess from a string to an integer so it can compare to the answer value
-        userGuess = parseInt($(this).data("value"));
+$("#answers").on("click", ".choice", function() {
+    //changes userGuess from a string to an integer so it can compare to the answer value
+    userGuess = parseInt($(this).data("value"));
+    console.log($(this))
         if (userGuess === questionAsked.answer) {
             stop()
             rightGuesses++
             $("#answers").html("<h3>Correct!</h3>")
             userGuess = "";
-            displayGame()
+            askNewQuestion()
         } else {
             stop()
             wrongGuesses++
             $("#answers").html("<h3>Train Harder! The right answer is: " + questionAsked.choices[questionAsked.answer] + "</h3>" )
             userGuess = "";
-            displayGame()
+            askNewQuestion()
         }
-
+        
     })
+
+function askNewQuestion() {
+    $("#answers").append("<img src=" + questionAsked.images + ">");
+    qnaIndex++
+    if (qnaIndex < batman.length) {
+    displayGame()
+    startTimer()
+    }
+    
+}
+
+
 
 
 
