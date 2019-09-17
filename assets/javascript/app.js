@@ -59,12 +59,14 @@ var batman = [
         images: ["./assets/images/robin.jpg"]
     },
 ]
+console.log(batman)
 $("#again").hide()
 $("#play").on("click", function() {
     $("#play").hide()
-    displayGame()
     startTimer()
+    displayGame()
 })
+console.log($(this))
 console.log(startTimer)
 
 function startTimer(){
@@ -76,6 +78,12 @@ function startTimer(){
 function decrease () {
     $("#timer").html("<h3>Time is counting: " + timer + "</h3>")
     timer--;
+    if (timer === 0) {
+        notAnswered++
+        stop()
+        $("#question").html("<h3>Times up! The answer is: " + questionAsked.choice[questionAsked.answer] + "</h3>")
+        displayGame()
+    }
 }
 function stop() {
     timerOn = false
@@ -96,42 +104,51 @@ function displayGame() {
         userChoices.addClass("choice");
         userChoices.html(questionAsked.choices[i])
         userChoices.data("value", i);
-        $("#answers").append(userChoices);
+        $("#question").append(userChoices);
         
     }
 }
-    
 //on click function
-$("#answers").on("click", ".choice", function() {
+$("#question").on("click", ".choice", function() {
     //changes userGuess from a string to an integer so it can compare to the answer value
     userGuess = parseInt($(this).data("value"));
     console.log($(this))
-        if (userGuess === questionAsked.answer) {
-            stop()
-            rightGuesses++
-            $("#answers").html("<h3>Correct!</h3>")
-            userGuess = "";
-            askNewQuestion()
-        } else {
-            stop()
-            wrongGuesses++
-            $("#answers").html("<h3>Train Harder! The right answer is: " + questionAsked.choices[questionAsked.answer] + "</h3>" )
-            userGuess = "";
-            askNewQuestion()
-        }
-        
-    })
-
-function askNewQuestion() {
-    $("#answers").append("<img src=" + questionAsked.images + ">");
-    qnaIndex++
-    if (qnaIndex < batman.length) {
-    displayGame()
-    startTimer()
+    if (userGuess === questionAsked.answer) {
+        stop();
+        rightGuesses++;
+        $("#question").html("<h3>Correct!</h3>");
+        userGuess = "";
+        $("#question").append("<img src=" + questionAsked.images + ">");
+        setTimeout(askNewQuestion, 1000);
+    } else {
+        stop ();
+        wrongGuesses++;
+        $("#question").html("<h3>Train Harder! The right answer is: " + questionAsked.choices[questionAsked.answer] + "</h3>" );
+        userGuess = "";
+        $("#question").append("<img src=" + questionAsked.images + ">");
+        setTimeout(askNewQuestion, 1000);
     }
     
-}
+})
 
+function askNewQuestion() {
+    if (index === 0 ) {
+        $("#question").empty();
+        $("#timer").empty()
+        $("#question").html("<h2>Game Over! Here is your score: </h2>")
+        $("#question").append("<h3> Correct: " + rightGuesses + "</h3>")
+        $("#question").append("<h3> Incorrect: " + wrongGuesses + "</h3>")
+        $("#question").append("<h3> Not Guessed: " + notAnswered + "</h3>")
+        $("#again").show()
+        
+    } else { 
+    batman.splice(index, 1)
+    console.log(index)
+    timer = 20
+    startTimer()
+    displayGame()
+    }
+}
 
 
 
