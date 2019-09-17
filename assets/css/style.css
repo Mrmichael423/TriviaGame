@@ -1,0 +1,75 @@
+body {
+    background-image: url(https://wallpaperaccess.com/full/197415.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% ;
+}
+
+header {
+    background: black;
+    color: yellow;
+    width: 35%;
+    text-align: center;
+    margin: auto;
+    border-radius: 25px;
+}
+
+#container {
+    width: 55%;
+    margin: auto;
+    background-image: url(https://thegeeksdaily.com/wp-content/uploads/2016/07/batman-symbol-feat-1-777x437.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 600px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#play {
+    background: yellow;
+    color: black;
+    border-radius: 15%;
+    margin-top: 25%;
+    font-weight: bold
+}
+#again {
+    background: yellow;
+    color: black;
+    border-radius: 15%;
+    font-weight: bold
+}
+
+#timer {
+    background: black;
+    color: yellow;
+    text-align: center;
+    
+
+}
+#question {
+    background: black;
+    color: yellow;
+    text-align: center;
+    width: 75%;
+    margin: 14% auto;
+
+
+}
+#answer {
+    background: black;
+    color: yellow;
+    text-align: center;
+
+
+}
+.choice {
+    background:yellow;
+    color:black;
+    text-align: center;
+    border-radius: 15%;
+    margin-top: 7%;
+    margin-right: 2%;
+}
+img {
+    height: 35%;
+    width: 35%;
+}

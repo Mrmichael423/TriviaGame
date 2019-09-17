@@ -5,6 +5,7 @@
 // function containing a for loop for asking questions
 // if/else statement to show right and wrong answers
 // reset function
+$(document).ready(function () {
 var rightGuesses = 0;
 var wrongGuesses = 0;
 var notAnswered = 0;
@@ -20,7 +21,7 @@ var batman = [
         question: "In what year was the first Batman comic released?",
         choices: ["1939", "1931", "1945", "1948", "1943"],
         answer: 0,
-        images: ["./assets/images/250px-BatmanComiclssue1,1940png"]
+        images: ["./assets/images/batman.jpg"]
     },
     {
         question: "Who is the voice of the iconic Joker in Batman: the animated series?",
@@ -78,7 +79,7 @@ function startTimer(){
 function decrease () {
     $("#timer").html("<h3>Time is counting: " + timer + "</h3>")
     timer--;
-    if (timer === 0) {
+    if (timer === -1) {
         notAnswered++
         stop()
         $("#question").html("<h3>Times up! The answer is: " + questionAsked.choice[questionAsked.answer] + "</h3>")
@@ -140,6 +141,9 @@ function askNewQuestion() {
         $("#question").append("<h3> Incorrect: " + wrongGuesses + "</h3>")
         $("#question").append("<h3> Not Guessed: " + notAnswered + "</h3>")
         $("#again").show()
+        rightGuesses = 0;
+        wrongGuesses = 0;
+        notAnswered = 0;
         
     } else { 
     batman.splice(index, 1)
@@ -150,8 +154,15 @@ function askNewQuestion() {
     }
 }
 
+$("#again").on("click", function() {
+    $("#again").hide();
+    $("#question").empty();
+    displayGame()
+    startTimer()
+})  
 
 
 
+})
 
 
